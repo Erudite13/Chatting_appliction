@@ -1,4 +1,4 @@
-package chatting.application;
+package chatting.application.Chatting_appliction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,7 +59,35 @@ public class Server extends JFrame implements ActionListener{
         morevert.setBounds(420,20,10,25);
         p1.add(morevert);
 
-        
+        JLabel name=new JLabel("alex");
+        name.setBounds(110,15 ,100,18);
+        name.setFont(new Font("SAN_SERIF",Font.BOLD,18));
+        name.setForeground(Color.WHITE);
+        p1.add(name);
+
+        JLabel status=new JLabel("Active Now");
+        status.setBounds(110,35 ,100,18);
+        status.setFont(new Font("SAN_SERIF",Font.BOLD,14));
+        status.setForeground(Color.WHITE);
+        p1.add(status);
+
+        JPanel a1 =new JPanel();
+        a1.setBounds(5,75,440,570);
+        add(a1);
+
+        JTextField text = new JTextField();
+        a1.setBounds(5,655,310,40);
+        text.setFont(new Font("SAN_SERIF, Font.PLAIN, 16", defaultCloseOperation, opacity));
+        add(text);
+
+        JButton send = new JButton("Send");
+        a1.setBounds(320,655,123,40);
+        send.setBackground(Color.WHITE);
+        send.setForeground(Color.WHITE);
+        send.setFont(new Font("SAN_SERIF, Font.PLAIN, 16", defaultCloseOperation, opacity));
+        add(send);
+
+
 
         setSize(450,700);
         setLocation(200,50);
