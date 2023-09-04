@@ -1,4 +1,5 @@
 package chatting.application.Chatting_appliction;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.*;
@@ -6,12 +7,12 @@ import java.awt.event.*;
 import java.util.*;
 import java.text.*; 
 
-public class Server extends JFrame implements ActionListener{
+public class Client extends JFrame implements ActionListener{
     JTextField text;
     JPanel a1;
     Box vertical =Box.createVerticalBox();
 
-    Server(){
+    Client(){
 
         setLayout(null);
 
@@ -34,7 +35,7 @@ public class Server extends JFrame implements ActionListener{
             }
         });
 
-        ImageIcon i4 = new ImageIcon(ClassLoader.getSystemResource("icons/profile.png"));
+        ImageIcon i4 = new ImageIcon(ClassLoader.getSystemResource("icons/2.png"));
         Image i5 = i4.getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT);
         ImageIcon i6 = new ImageIcon(i5); 
         JLabel profile= new JLabel(i6);
@@ -64,7 +65,7 @@ public class Server extends JFrame implements ActionListener{
         morevert.setBounds(420,20,10,25);
         p1.add(morevert);
 
-        JLabel name=new JLabel("alex");
+        JLabel name=new JLabel("david");
         name.setBounds(110,15 ,100,18);
         name.setFont(new Font("SAN_SERIF",Font.BOLD,18));
         name.setForeground(Color.WHITE);
@@ -96,7 +97,7 @@ public class Server extends JFrame implements ActionListener{
 
 
         setSize(450,700);
-        setLocation(200,50);
+        setLocation(800,50);
         getContentPane().setBackground(Color.WHITE);
         setVisible(true);
            
@@ -145,6 +146,6 @@ public class Server extends JFrame implements ActionListener{
 
     }
     public static void main(String[] args){
-        new Server();
+        new Client();
     }
 }
