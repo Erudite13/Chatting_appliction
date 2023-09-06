@@ -6,21 +6,25 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 import java.text.*; 
+import java.net.*;
+import java.io.*;
 
 public class Client extends JFrame implements ActionListener{
     JTextField text;
-    JPanel a1;
-    Box vertical =Box.createVerticalBox();
+    static JPanel a1;
+    static Box vertical =Box.createVerticalBox();
+    static DataOutputStream dout;
+    static JFrame f =new JFrame();
 
     Client(){
 
-        setLayout(null);
+        f.setLayout(null);
 
         JPanel p1 = new JPanel();
         p1.setBackground(new Color(7,94,84));
         p1.setBounds(0,0,450,70);
         p1.setLayout(null);
-        add(p1);
+        f.add(p1);
 
         ImageIcon i1= new ImageIcon(ClassLoader.getSystemResource("icons/3.png"));
         Image i2 = i1.getImage().getScaledInstance(25, 25, Image.SCALE_DEFAULT);
@@ -79,12 +83,12 @@ public class Client extends JFrame implements ActionListener{
 
         a1 =new JPanel();
         a1.setBounds(5,75,440,570);
-        add(a1);
+        f.add(a1);
 
         text = new JTextField();
         text.setBounds(5,655,310,40);
         text.setFont(new Font("SAN_SERIF, Font.PLAIN, 16", ABORT, ABORT));
-        add(text);
+        f.add(text);
 
         JButton send = new JButton("Send");
         a1.setBounds(320,655,123,40);
@@ -92,18 +96,19 @@ public class Client extends JFrame implements ActionListener{
         send.setForeground(Color.WHITE);
         send.addActionListener(this);
         send.setFont(new Font("SAN_SERIF, Font.PLAIN, 16", ABORT, ABORT));
-        add(send);
+        f.add(send);
 
 
 
-        setSize(450,700);
-        setLocation(800,50);
-        getContentPane().setBackground(Color.WHITE);
-        setVisible(true);
+        f.setSize(450,700);
+        f.setLocation(800,50);
+        f.getContentPane().setBackground(Color.WHITE);
+        f.setVisible(true);
            
     }
 
     public void actionPerformed(ActionEvent ae){
+    try{
         String out = text.getText();
        // JLabel output = new JLabel(out);
         JPanel p2 =formatLabel(out);
@@ -116,12 +121,17 @@ public class Client extends JFrame implements ActionListener{
 
         a1.add(vertical,BorderLayout.PAGE_START);
 
+        dout.writeUTF(out);
+
         text.setText("");
 
-        repaint();
-        invalidate();
-        validate();
+        f.repaint();
+        f.invalidate();
+        f.validate();
+    }catch(Exception e){
+        e.printStackTrace(null);
     }
+   }
 
     public static JPanel formatLabel(String out){
         JPanel panel = new JPanel();
@@ -147,5 +157,29 @@ public class Client extends JFrame implements ActionListener{
     }
     public static void main(String[] args){
         new Client();
+
+        try{
+            Socket s=new Socket("127.0.0.1" ,6001);
+            DataInputStream din= new DataInputStream(s.getInputStream());
+            dout=new DataOutputStream(s.getOutputStream());
+
+            while(true){
+                a1.setLayout(new BorderLayout());
+                Stirng msg = din.readUTF();
+                JPanel panel= formatLabel(msg);
+
+                JPanel left =new JPanel(new BorderLayout());
+                left.add(panel,BorderLayout.LINE_START);
+                vertical.add(left);
+
+                vertical.add(Box.createVerticalStruct(15));
+                a1.add(vertical,BorderLayout.PAGE_START);
+                
+                f.validate();
+            }
+
+        }catch(Exception e){
+            e.printStackTrace(null);
+        }
     }
 }
