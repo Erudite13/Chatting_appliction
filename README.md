@@ -2,7 +2,7 @@
 <html lang="en">
 <body>
 
-<h1>Chatting Application using Java and Socket</h1>
+<h1>Chatting Application using Java swing and Socket</h1>
 
 <p>Welcome to the Chatting Application repository! This project is a simple chat application developed using Java and the Socket package. The application allows multiple users to communicate with each other in real-time over a network.</p>
 
